@@ -1,0 +1,31 @@
+# Free P2P site. Render restarts/idle shutdowns retire all room authority.
+services:
+  - type: web
+    name: luma-flow
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /healthz
+    envVars:
+      - key: PIIK_ENV
+        value: production
+      - key: LISTEN_HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: "10000"
+      - key: ROOM_DATABASE_PATH
+        value: ":memory:"
+      - key: ROOM_EMPTY_TIMEOUT_SECONDS
+        value: "3600"
+      - key: STUN_URLS
+        value: stun:stun.cloudflare.com:3478
+      - key: STUN_LISTEN_HOST
+        value: 127.0.0.1
+      - key: NAT_PREDICTION_ENABLED
+        value: "false"
+      - key: SFU_UDP_PORT
+        value: ""
+      - key: SFU_ONLY
+        value: "false"
